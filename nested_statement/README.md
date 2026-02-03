@@ -36,7 +36,7 @@ Income Statement
 
 ## Run this Example
 
-Clone the project folder and run the following commands inside the basic_statement directory:
+Clone the project folder and run the following commands inside the current directory:
 
 ```sh
 # Create a new local switch with OCaml 5.4
