@@ -1,0 +1,4 @@
+(executable
+ (name main)
+ (public_name basic_three_statement)
+ (libraries orcaset unix))

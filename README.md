@@ -4,7 +4,9 @@ Example financial models using Orcaset in OCaml.
 
 ## Example Projects
 
-- **[basic_statement](basic_statement/)**: A basic financial statement model demonstrating core Orcaset features.
+- **[Basic Statement](basic_statement/)**: A basic financial statement model demonstrating core Orcaset features.
+- **[Nested Statement](nested_statement/)**: Multi-level financial statement show how to compose model components into structured statements.
+- **[Basic Three Statement](basic_three_statement)**: Simple three-three statement model with linked income, cash flow, and balance sheet statements.
 
 ## Getting Started
 
