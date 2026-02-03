@@ -1,0 +1,4 @@
+(executable
+ (name main)
+ (public_name nested_statement)
+ (libraries orcaset unix))
