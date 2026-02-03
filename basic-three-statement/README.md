@@ -61,22 +61,24 @@ Three Statement Model
 
 ## Run this Example
 
-Clone the project folder and run the following commands inside the directory:
+Clone the project folder and run the following commands inside the project directory.
+
+Create a new local environment with OCaml 5.4.0 and update the shell environment.
 
 ```sh
-# Create a new local switch with OCaml 5.4
 opam switch create . 5.4.0
-
-# Update shell environment
 eval $(opam env)
+```
+Install orcaset from GitHub.
 
-# Install orcaset from GitHub
-opam pin add orcaset https://github.com/orcaset/orcaset.git#a3d1efc1cf02d2da516fe714dc878c1bb582234e
+```sh
+opam pin add orcaset "https://github.com/orcaset/orcaset.git#a3d1efc1cf02d2da516fe714dc878c1bb582234e"
+```
 
-# Build the project
+Build and run the project.
+
+```sh
 dune build
-
-# Run the executable
 dune exec basic_three_statement
 ```
 
