@@ -77,8 +77,7 @@ opam pin add orcaset https://github.com/orcaset/orcaset.git#a3d1efc1cf02d2da516f
 dune build
 
 # Run the executable
-dune exec orcaset-oc % #
-zsh: command not found: #
+dune exec basic_three_statement
 ```
 
 Running this example will print out the statement below:

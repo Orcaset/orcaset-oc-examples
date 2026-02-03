@@ -8,6 +8,7 @@ Example financial models using Orcaset in OCaml.
 - **[Nested Statement](nested_statement/)**: Multi-level financial statement show how to compose model components into structured statements.
 - **[Basic Three Statement](basic_three_statement/)**: Simple three-three statement model with linked income, cash flow, and balance sheet statements.
 - **[Loan Schedule](loan_schedule/)**: Create a loan schedule for a standard fixed-rate, fully amortizing commercial real estate loan.
+- **[Real Estate Portfolio](cre_proforma/)**: Standard commercial real estate pro forma through levered cash flows for a 1,000 property portfolio.
 
 ## Getting Started
 
