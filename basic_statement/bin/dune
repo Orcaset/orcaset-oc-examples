@@ -1,0 +1,4 @@
+(executable
+ (name main)
+ (public_name basic_statement)
+ (libraries orcaset unix))
