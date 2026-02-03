@@ -1,0 +1,11 @@
+(executable
+ (name run_property)
+ (public_name run_property)
+ (modules run_property)
+ (libraries cre_proforma orcaset unix))
+
+(executable
+ (name run_portfolio)
+ (public_name run_portfolio)
+ (modules run_portfolio)
+ (libraries cre_proforma orcaset unix))

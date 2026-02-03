@@ -1,0 +1,4 @@
+(library
+ (name cre_proforma)
+ (public_name cre_proforma)
+ (libraries orcaset))
