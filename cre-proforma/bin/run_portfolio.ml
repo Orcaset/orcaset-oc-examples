@@ -15,7 +15,7 @@ module Statement = Orcaset.Statement
    SHARED ASSUMPTIONS
    ===================================================== *)
 
-let property_count = 1000
+let property_count = 10000
 let start_date = CalendarLib.Date.make 2023 1 1
 let freq = Period.make_offset ~months:1 ()
 let output_freq = Period.make_offset ~months:1 ()
@@ -72,12 +72,49 @@ let properties =
 let periods =
   Period.make_seq ~start_date ~offset:output_freq |> Seq.take output_periods |> List.of_seq
 
-(* Helper to aggregate a field across all properties using accrue_periods *)
+(* Split a list into n roughly equal chunks *)
+let split_into_chunks n lst =
+  let len = List.length lst in
+  let chunk_size = (len + n - 1) / n in
+  let rec take_chunk acc remaining count =
+    match remaining with
+    | [] -> (List.rev acc, [])
+    | _ when count = 0 -> (List.rev acc, remaining)
+    | x :: xs -> take_chunk (x :: acc) xs (count - 1)
+  in
+  let rec split acc remaining =
+    match remaining with
+    | [] -> List.rev acc
+    | _ ->
+        let chunk, rest = take_chunk [] remaining chunk_size in
+        split (chunk :: acc) rest
+  in
+  split [] lst
+
+(* Helper to aggregate a field across all properties using accrue_periods - parallelized *)
 let aggregate f =
+  let num_domains = Domain.recommended_domain_count () in
+  let chunks = split_into_chunks num_domains properties in
   let zero = List.init output_periods (fun _ -> 0.0) in
-  List.fold_left
-    (fun acc p -> List.map2 ( +. ) acc (Accrual.accrue_periods periods (f p)))
-    zero properties
+
+  let process_chunk chunk =
+    List.fold_left
+      (fun acc p -> List.map2 ( +. ) acc (Accrual.accrue_periods periods (f p)))
+      zero chunk
+  in
+
+  match chunks with
+  | [] -> zero
+  | [ single ] -> process_chunk single
+  | main_chunk :: other_chunks ->
+      (* Spawn domains for other chunks, process main chunk in current domain *)
+      let domains =
+        List.map (fun chunk -> Domain.spawn (fun () -> process_chunk chunk)) other_chunks
+      in
+      let main_result = process_chunk main_chunk in
+      let other_results = List.map Domain.join domains in
+      (* Combine all partial results *)
+      List.fold_left (fun acc r -> List.map2 ( +. ) acc r) main_result other_results
 
 (* Portfolio totals - aggregate all property line items *)
 

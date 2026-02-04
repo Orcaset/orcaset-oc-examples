@@ -1,22 +1,29 @@
-# Basic Three Statement Model
+# CRE Portfolio Example
 
-This example illustrates a simple commercial real estate model for both a single property and a portfolio of properties. The executables print 120 monthly periods by default.
+This examples runs a massive commercial real estate model for 10,000 properties.
 
-Orcaset makes working with massive models possible. The portfolio example calculates 10 years of monthly values for 27 line items summed over 1,000 properties. In Excel, the portfolio model would require recalculating 3.483 million cells every time an assumption is changed. Such recalculation (e.g. for in response to updating a growth rate assumption) takes between 30-60 seconds on a standard corporate laptop. The same update and recalculation takes only a few seconds with Orcaset.
+Orcaset makes working with massive models possible. The portfolio example calculates 10 years of monthly values for 27 line items summed over 1,000 properties. Replicating this portfolio in Excel would require 32.4 million cells. For reference, there are only approximately 17.2 million cells in an Excel worksheet, meaning this model would fill almost two entire worksheets *where ever cell has a formula*. Anyone who has tried to build a large Excel model knows that Excel becomes non-responsive on *much* smaller models, and even if Excel could handle the computational scale navigating and updating components would be extremely difficult.
 
-Additionally, navigating across 1,000 property statements in Excel is difficult. Orcaset's programmatic approach allows users to easily drill down into specific properties or line items for detailed analysis.
+Orcaset's programmatic approach allows users to run massive models and easily navigate across components. This model is a simple example of running a portfolio-scale model with Orcaset.
 
-## `run_property`
+## Executables
 
-Prints out a pro forma statement for a single fictitious property. The Orcaset model in this examples matches the Excel model in the folder. Twelve monthly periods.
+### `run_property`
 
-## `run_portfolio`
-Demonstrates portfolio-scale aggregation and model reusability by creating 1,000 properties from the same Orcaset model. The model uses the same default assumptions for each property so that it is easy to verify that the portfolio aggregates correctly. You can easily modify the number of properties changing the `num_properties` or add properties to the portfolio with different assumptions.
+Prints out a pro forma statement for a single property. It prints a bite sized statement for twelve monthly periods matching the Excel model in the folder. It is useful for verifying that the Orcaset model works as expected before combining and scaling to the entire portfolio.
+
+Note that the property assumptions are different than the property assumptions in the portfolio example.
+
+### `run_portfolio`
+
+Demonstrates portfolio-scale aggregation and model reusability by creating 10,000 properties from the same Orcaset model. The model uses the same default assumptions for each property so that it is easy to verify that the portfolio aggregates correctly. You can easily modify the number of properties changing the `num_properties` or add properties to the portfolio with different assumptions.
+
+This example uses naive parallelism across properties to speed up the process. Each property is an independent model (and in general, investments in a portfolio are independent) which lends well to parallelism. Results will vary, but running on a M3 MacBook Pro takes takes 15-30 seconds.
 
 ## Key Concepts
 
 - **Reusing Component Types**: The portfolio executable creates multiple properties by reusing the same property model component types.
-- **Portfolio Aggregation**: The example efficiently aggregates across 1,000 properties to rapidly produce a portfolio-level statement. Users can easily navigate down to specific properties or line items within a property for detailed analysis.
+- **Portfolio Aggregation**: The example efficiently aggregates across 10,000 properties to rapidly produce a portfolio-level statement. Users can easily navigate down to specific properties or line items within a property for detailed analysis.
 
 
 ## Statement Structure
@@ -75,7 +82,7 @@ dune exec run_property
 dune exec run_portfolio
 ```
 
-The property statement output is printed below. The printout from the portfolio will have the same structure, but show the aggregated values across 1,000 properties for 120 monthly periods.
+The `run_property` output is printed below. The printout from the portfolio file will have the same structure, but show the aggregated values for 10,000 properties for 120 monthly periods.
 
 ```text
 PROPERTY ASSUMPTIONS                
