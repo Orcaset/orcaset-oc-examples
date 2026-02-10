@@ -71,7 +71,7 @@ eval $(opam env)
 Install orcaset from GitHub.
 
 ```sh
-opam pin add orcaset "https://github.com/orcaset/orcaset.git#a3d1efc1cf02d2da516fe714dc878c1bb582234e"
+opam pin add orcaset git+https://github.com/Orcaset/orcaset-oc#602fec1bde7c8bfd71c8b4d54da1ba5cc7903a9a
 ```
 
 Build and run the project.
