@@ -44,21 +44,22 @@ let operating_income = Operating_income.make ~gross_profit ~admin
 (* Build the income statement using Statement module *)
 let income_statement =
   let open Orcaset.Statement in
-  group "Income Statement"
+  group ~total:operating_income "Operating Income"
     [
-      group ~total:cost_of_revenue.Cost_of_revenue.total "Cost of Revenue"
+      group ~total:gross_profit "Gross Profit"
         [
           group ~total:revenue.Revenue.total "Revenue"
             [
               line "Recurring" revenue.Revenue.recurring;
               line "Non-Recurring" revenue.Revenue.non_recurring;
             ];
-          line "Recurring" cost_of_revenue.Cost_of_revenue.recurring;
-          line "Non-Recurring" cost_of_revenue.Cost_of_revenue.non_recurring;
+          group ~total:cost_of_revenue.Cost_of_revenue.total "Cost of Revenue"
+            [
+              line "Recurring" cost_of_revenue.Cost_of_revenue.recurring;
+              line "Non-Recurring" cost_of_revenue.Cost_of_revenue.non_recurring;
+            ];
         ];
-      line "Gross Profit" gross_profit;
-      group "Operating Expenses" [ line "Admin" admin ];
-      line "Operating Income" operating_income;
+      line "Admin Expenses" admin;
     ]
 
 (* Generate periods for display *)

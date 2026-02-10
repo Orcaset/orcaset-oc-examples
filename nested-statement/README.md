@@ -9,17 +9,15 @@ This example demonstrates a more complex income model with multiple line items n
 ## Statement Structure
 
 ```text
-Income Statement
-├── Cost of Revenue
+Operating Income
+├── Gross Profit
 │   ├── Revenue
 │   │   ├── Recurring
-│   │   └── Non-Recurring
-│   ├── Recurring (Cost)
-│   └── Non-Recurring (Cost)
-├── Gross Profit
-├── Operating Expenses
-│   └── Admin
-└── Operating Income
+│   │   └── Non-recurring
+│   └── Cost of revenue
+│       ├── Recurring
+│       └── Non-recurring
+└── Admin Expenses
 ```
 
 ## Line Items
@@ -47,7 +45,7 @@ eval $(opam env)
 Install orcaset from GitHub.
 
 ```sh
-opam pin add orcaset "https://github.com/orcaset/orcaset.git#a3d1efc1cf02d2da516fe714dc878c1bb582234e"
+opam pin add orcaset git+https://github.com/Orcaset/orcaset-oc#602fec1bde7c8bfd71c8b4d54da1ba5cc7903a9a
 ```
 
 Build and run the project.
